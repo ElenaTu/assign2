@@ -97,31 +97,34 @@ void draw(){
         // -------------------------------
         // Modify the following code
         // to meet the requirement
+        if(frogY == pondY){
+          gameState = GAME_WIN;
+        }
         // -------------------------------
         
          //car1 move
-         leftCar1X += speed;
+         leftCar1X += speed+3;
          if (leftCar1X > width){
              leftCar1X = 0;
          }
          image(imgLeftCar1, leftCar1X, leftCar1Y);
   
          //car2 move
-         leftCar2X += speed;
+         leftCar2X += speed-3;
          if (leftCar2X > width){
              leftCar2X = 0;
          }
          image(imgLeftCar2, leftCar2X, leftCar2Y);
   
          //car3 move
-         rightCar1X -= speed;
+         rightCar1X -= speed+1;
          if (rightCar1X < 0){
              rightCar1X = width;
          }
          image(imgRightCar1, rightCar1X, rightCar1Y);
 
          //car4 move
-         rightCar2X -= speed;
+         rightCar2X -= speed-1;
          if (rightCar2X < 0){
              rightCar2X = width;
          }
@@ -129,10 +132,27 @@ void draw(){
   
          float frogCX = frogX+frogW/2;
          float frogCY = frogY+frogH/2;
+         
          // car1 hitTest
+         if((frogX==leftCar1X)&&(frogY==leftCar1Y)){
+           gameState = FROG_DIE;
+         }
          // car2 hitTest
+         if((frogX==leftCar2X)&&(frogY==leftCar2Y)){
+           gameState = FROG_DIE;
+         }
          // car3 hitTest
+         if((frogX==rightCar1X)&&(frogY==rightCar1Y)){
+           gameState = FROG_DIE;
+         }
          // car4 hitTest
+         if((frogX==rightCar2X)&&(frogY==rightCar2Y)){
+           gameState = FROG_DIE;
+         }
+      
+         
+         
+         
         break;
     case GAME_WIN:
         background(0);
@@ -154,7 +174,7 @@ void keyPressed() {
         if(frogX >= width-frogW){
           frogX=width-frogW;       
         }else{
-        frogX+=speed;       
+        frogX+=frogW;       
         }
      
        }
@@ -162,7 +182,7 @@ void keyPressed() {
         if(frogX <= 0){
           frogX=0;       
         }else{
-        frogX-=speed;       
+        frogX-=frogW;       
         }
      
        }
@@ -170,7 +190,7 @@ void keyPressed() {
         if(frogY >= height-frogH){
           frogY=height-frogH;       
         }else{
-        frogY+=speed;       
+        frogY+=frogH;       
         }
      
        }
@@ -178,7 +198,7 @@ void keyPressed() {
         if(frogY <= frogH){
           frogY=0;       
         }else{
-        frogY-=speed;       
+        frogY-=frogH;       
         }
      
        }
